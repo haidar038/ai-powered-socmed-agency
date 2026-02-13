@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Creative Branding Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Crimson+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-green: #1a4d2e;
+            --dark-green: #0f2818;
+            --accent-green: #2d6a4f;
+            --light-cream: #faf8f5;
+            --warm-beige: #e8dfd0;
+            --text-dark: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Pro', serif;
+            color: var(--text-dark);
+            background: var(--light-cream);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .heading-font {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 77, 46, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Hero Section */
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(45, 106, 79, 0.3) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(45, 106, 79, 0.2) 0%, transparent 70%);
+            bottom: -150px;
+            left: -100px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+        
+        /* Section Decorations */
+        .section-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 8rem;
+            font-weight: 700;
+            color: rgba(26, 77, 46, 0.05);
+            position: absolute;
+            top: -2rem;
+            left: -1rem;
+            line-height: 1;
+            user-select: none;
+        }
+        
+        /* Service Cards */
+        .service-card {
+            background: white;
+            border-radius: 0;
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid transparent;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+        
+        .service-card:hover {
+            border-left-color: var(--primary-green);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(26, 77, 46, 0.15);
+        }
+        
+        .service-card:hover::before {
+            height: 100%;
+        }
+        
+        .service-card:hover .service-content {
+            color: white;
+        }
+        
+        .service-card:hover .service-title {
+            color: white;
+        }
+        
+        .service-content {
+            position: relative;
+            z-index: 1;
+            transition: color 0.4s ease;
+        }
+        
+        .service-title {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+            transition: color 0.4s ease;
+        }
+        
+        /* CTA Buttons */
+        .btn-primary {
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-green);
+            transition: left 0.4s ease;
+            z-index: 0;
+        }
+        
+        .btn-primary:hover::before {
+            left: 0;
+        }
+        
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            padding: 1rem 2.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: white;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .portfolio-item::after {
+            content: 'View Project';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 77, 46, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover::after {
+            opacity: 1;
+        }
+        
+        .portfolio-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+        
+        /* Fade in animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Consultation Section */
+        .consultation-bg {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .consultation-bg::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light-cream);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-green);
+        }
+        
+        @media (max-width: 768px) {
+            .section-number {
+                font-size: 4rem;
+            }
+            
+            .service-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <div class="heading-font text-2xl font-bold" style="color: var(--primary-green);">
+                    CREATIVE.AI
+                </div>
+                <div class="hidden md:flex space-x-8 heading-font">
+                    <a href="#about" class="hover:text-[var(--primary-green)] transition-colors">About</a>
+                    <a href="#services" class="hover:text-[var(--primary-green)] transition-colors">Services</a>
+                    <a href="#works" class="hover:text-[var(--primary-green)] transition-colors">Portfolio</a>
+                    <a href="#consultation" class="hover:text-[var(--primary-green)] transition-colors">Contact</a>
+                </div>
+                <a href="#consultation" class="btn-primary px-6 py-2 text-sm">
+                    <span>Get Started</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white pt-32 pb-20 md:pt-40 md:pb-32">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="relative z-10 max-w-4xl">
+                <div class="fade-in">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        Make Your Brand<br>
+                        <span style="color: var(--warm-beige);">Impossible to Ignore</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-100 font-light leading-relaxed max-w-2xl">
+                        We are the first creative branding agency AI based that built to help brands grow with content that's fast, consistent, and unmistakably on-brand.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-10">
+                        <a href="#consultation" class="btn-primary">
+                            <span>Free Consultation</span>
+                        </a>
+                        <a href="#works" class="btn-secondary bg-white/10 border-white text-white hover:bg-white hover:text-[var(--primary-green)]">
+                            View Our Work
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-in">
+                    <div class="text-sm heading-font tracking-widest mb-4" style="color: var(--accent-green);">ABOUT US</div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--primary-green);">
+                        AI-Powered Creativity Meets Expert Curation
+                    </h2>
+                    <p class="text-lg md:text-xl leading-relaxed mb-6 text-gray-700">
+                        We combine an AI content engine with branding experts who understand your guidelines, so you achieve premium output without conventional agency overhead.
+                    </p>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+                        Let's make your brand impossible to ignore.
+                    </p>
+                </div>
+                <div class="fade-in">
+                    <div class="relative">
+                        <div class="absolute inset-0 rounded-lg transform rotate-3" style="background: linear-gradient(135deg, var(--primary-green), var(--accent-green));"></div>
+                        <div class="relative bg-white p-12 rounded-lg shadow-2xl">
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--primary-green);">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="heading-font text-xl font-semibold mb-2" style="color: var(--primary-green);">Fast Turnaround</h3>
+                                        <p class="text-gray-600">AI-accelerated production delivers results in days, not weeks.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--primary-green);">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="heading-font text-xl font-semibold mb-2" style="color: var(--primary-green);">Brand Consistency</h3>
+                                        <p class="text-gray-600">Every output aligns perfectly with your brand guidelines.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--primary-green);">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="heading-font text-xl font-semibold mb-2" style="color: var(--primary-green);">Premium Quality</h3>
+                                        <p class="text-gray-600">Expert curation ensures professional, high-quality output.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do Section -->
+    <section id="services" class="py-20 md:py-32 relative" style="background: var(--light-cream);">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <div class="text-sm heading-font tracking-widest mb-4" style="color: var(--accent-green);">SERVICES</div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-6" style="color: var(--primary-green);">What We Do</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                    We'll do whatever it takes to get your brand the attention it deserves, not just reach but real relevance. We deliver a full spectrum of creative branding services with an AI-powered workflow.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+                <!-- Branding -->
+                <div class="service-card fade-in">
+                    <div class="service-content">
+                        <h3 class="service-title">Branding</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            We give your products and services meaning by shaping how people perceive your brand—through voice, tone, content pillars, and visual consistency.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Social Media Management -->
+                <div class="service-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="service-content">
+                        <h3 class="service-title">Social Media Management</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            Eye-catching visuals build awareness—but a structured content program wins attention consistently. AI accelerates production, and our experts curate the output so it stays high-quality and on-brand.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Photography -->
+                <div class="service-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="service-content">
+                        <h3 class="service-title">Photography</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            We transform your simple product photos into professional, brand-consistent visuals. With AI-powered enhancement and expert curation, we refine backgrounds, lighting, color, and composition.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Videography -->
+                <div class="service-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="service-content">
+                        <h3 class="service-title">Videography</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            We transform your simple product photos into professional commercial product videos. We craft strong hooks, clean motion, and clear messaging so your product looks premium.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Reels & TikTok -->
+                <div class="service-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="service-content">
+                        <h3 class="service-title">Reels & TikTok Management</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            We support you from concept to execution such as storylines, copywriting, trend/audio recommendations, and content guidance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Content Strategy -->
+                <div class="service-card fade-in" style="animation-delay: 0.5s;">
+                    <div class="service-content">
+                        <h3 class="service-title">Full-Spectrum Solutions</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            We create deeper, stronger, and longer-lasting connections between your brand, your ideas, and your audience through integrated creative solutions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="works" class="py-20 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <div class="text-sm heading-font tracking-widest mb-4" style="color: var(--accent-green);">PORTFOLIO</div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-6" style="color: var(--primary-green);">Our Works</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                    Take a closer look to see how we've helped brands create on-brand content that performs from strategy to scroll-stopping visuals.
+                </p>
+            </div>
+
+            <!-- Photo Portfolio -->
+            <div class="mb-16">
+                <h3 class="heading-font text-2xl font-semibold mb-8" style="color: var(--primary-green);">Photography Projects</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="portfolio-item fade-in">
+                        <div class="portfolio-placeholder">Photo 1</div>
+                    </div>
+                    <div class="portfolio-item fade-in" style="animation-delay: 0.1s;">
+                        <div class="portfolio-placeholder">Photo 2</div>
+                    </div>
+                    <div class="portfolio-item fade-in" style="animation-delay: 0.2s;">
+                        <div class="portfolio-placeholder">Photo 3</div>
+                    </div>
+                    <div class="portfolio-item fade-in" style="animation-delay: 0.3s;">
+                        <div class="portfolio-placeholder">More</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Portfolio -->
+            <div>
+                <h3 class="heading-font text-2xl font-semibold mb-8" style="color: var(--primary-green);">Video Projects</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="portfolio-item fade-in">
+                        <div class="portfolio-placeholder">Video 1</div>
+                    </div>
+                    <div class="portfolio-item fade-in" style="animation-delay: 0.1s;">
+                        <div class="portfolio-placeholder">Video 2</div>
+                    </div>
+                    <div class="portfolio-item fade-in" style="animation-delay: 0.2s;">
+                        <div class="portfolio-placeholder">Video 3</div>
+                    </div>
+                    <div class="portfolio-item fade-in" style="animation-delay: 0.3s;">
+                        <div class="portfolio-placeholder">More</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Consultation Section -->
+    <section id="consultation" class="consultation-bg text-white py-20 md:py-32">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <div class="fade-in">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">Free Consultation</h2>
+                <p class="text-xl md:text-2xl mb-12 leading-relaxed text-gray-100">
+                    Let's talk about the scaling possibilities for your business growth with us. Book and schedule your free consultation today.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="mailto:hello@creative.ai" class="btn-primary bg-white text-[var(--primary-green)] hover:bg-gray-100">
+                        <span>Get In Touch</span>
+                    </a>
+                    <a href="#" class="btn-secondary border-white text-white hover:bg-white hover:text-[var(--primary-green)]">
+                        Schedule Call
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12" style="background: var(--dark-green); color: white;">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="heading-font text-2xl font-bold mb-4">CREATIVE.AI</div>
+                    <p class="text-gray-300 leading-relaxed">
+                        AI-powered creative branding that makes your brand impossible to ignore.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="heading-font font-semibold mb-4 text-lg">Services</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#services" class="hover:text-white transition-colors">Branding</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Social Media</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Photography</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Videography</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="heading-font font-semibold mb-4 text-lg">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#works" class="hover:text-white transition-colors">Portfolio</a></li>
+                        <li><a href="#consultation" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="heading-font font-semibold mb-4 text-lg">Connect</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Creative.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
